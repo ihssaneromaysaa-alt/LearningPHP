@@ -153,7 +153,7 @@
     ?-->
 
     <h2>8. Animales</h2>
-    <p style="font-size:30px">
+    <!--p style="font-size:30px"-->
     <!--?php 
     /*function generarAnimales(){
         $animales=[];
@@ -187,28 +187,35 @@
     echo codigosAEmojis($restantes);
     ?-->
     <h2>9. Array de arrays</h2>
-    <?php 
+    <!--?php 
     echo "a. <br>";
     $profesores=[
         ['numRegistro'=>'234',
         'nombre'=>'lucia',
         'apellido'=>'martinez',
         'numero'=>'123455667',
-        'fechaN'=>'21/03/67'
+        'fechaN'=>'21 March 1967'
         ],
         [
         'numRegistro'=>'644',
         'nombre'=>'maría',
         'apellido'=>'gonzales',
         'numero'=>'325262667',
-        'fechaN'=>'20/10/77'
+        'fechaN'=>'20 October 1977'
         ],
         [
         'numRegistro'=>'7456',
         'nombre'=>'toni',
         'apellido'=>'montana',
         'numero'=>'9675743',
-        'fechaN'=>'03/12/54'
+        'fechaN'=>'3 September 2000'
+        ],
+        [
+        'numRegistro'=>'4322352',
+        'nombre'=>'netan',
+        'apellido'=>'tel',
+        'numero'=>'523095209',
+        'fechaN'=>'8 September 2002'
         ]
     ];
     print_r($profesores);
@@ -235,13 +242,14 @@
             }, $profesores);
         return $numRegistro;
     }
-
     print_r(numRArrayM($profesores));
-    echo "<br>d.";
-    print_r(array_filter($profesores,function($profesores){
-        $fechaN=$profesores['fechaN']
-    }));
+    echo "<br>d. Arrays nacidos a partir de 1999<br>";
+
+    define('MINIMUN_DATE_FILTER',strtotime('1 January 1999'));
+    print_r(array_filter($profesores,fn($profesores)=>strtotime($profesores['fechaN'])>=MINIMUN_DATE_FILTER));
+    
     ?>
-    </p>
+    </p-->
+    <h2>10. Ajedrez</h2>
 </body>
 </html>
