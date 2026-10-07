@@ -1,8 +1,7 @@
-<!--?php
-    declare(scrict_types=1);
-?-->
-<?php
-    include "funciones.php";
+<?php declare(strict_types=1);
+
+require_once __DIR__ . "/src/Persona.php";
+require_once __DIR__ . "/src/Cliente.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +13,12 @@
 </head>
 <body>
     <?php 
-    require_once("/src/Producto.php");
-    $producto=new Producto();
+
+    //$producto=new Producto();
+    
+    $persona=new Persona("juanito", "perez");
+    $cliente=new Cliente("juanito", "perez","234");
+    var_dump($cliente);
     ?>
 </body>
 </html>
