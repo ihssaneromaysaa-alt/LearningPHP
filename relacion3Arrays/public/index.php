@@ -16,13 +16,49 @@
     
     <!--h2>11. Jugando con cartas</h2-->
     <?php
+    // 11.1 Antes de comenzar
+    // $palabras=["bastos", "copas", "espadas", "oros"];
+    // $palos=crearBarajaCompleta($palabras);
+    // barajarBaraja($palos);
+    // //print_r($palos);
+    // //var_dump(sacarCarta($palos));
+    // //var_dump($palos);
+    // mostrarCarta(sacarCarta($palos));
+
+    // 11.2 Las siete y media
+    // 1. crear baraja y 
     $palabras=["bastos", "copas", "espadas", "oros"];
-    $palos=crearBarajaCompleta($palabras);
-    barajarBaraja($palos);
-    //print_r($palos);
-    //var_dump(sacarCarta($palos));
-    //var_dump($palos);
-    mostrarCarta(sacarCarta($palos));
+    $baraja=crearBarajaCompleta($palabras);
+    barajarBaraja($baraja);
+    // 2. ejecutar turno del jugador
+    echo "<h3>turno de jugador</h3>";
+    $puntuacionJ=0;
+    do{
+        $carta=sacarCarta($baraja);
+        mostrarCarta($carta);
+        $numero=(int)$carta["numero"];
+        if ($numero === 10 || $numero === 11 || $numero === 12 )
+            $puntuacionJ += 0.5;
+        else
+            $puntuacionJ += $numero;
+        echo "su puntuación actual es de: ". $puntuacionJ ."<br>";
+    }while($puntuacionJ<=7);
+
+    // pov: le toca a blanca
+    // 3. ejecurar el turno de blanca
+    echo "<h3>turno de jugador</h3>";
+    $puntuacionB=0;
+    do{
+        $carta=sacarCarta($baraja);
+        mostrarCarta($carta);
+        $numero=(int)$carta["numero"];
+        if ($numero === 10 || $numero === 11 || $numero === 12 )
+            $puntuacionB += 0.5;
+        else
+            $puntuacionB += $numero;
+        echo "su puntuación actual es de: ". $puntuacionB ."<br>";
+    }while($puntuacionB < $puntuacionJ && $puntuacionB <= 7.5);
+
     ?>
 </body>
 </html>
