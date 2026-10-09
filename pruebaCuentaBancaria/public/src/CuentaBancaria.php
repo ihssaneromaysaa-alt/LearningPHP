@@ -3,7 +3,7 @@
 class CuentaBancaria {
     public function __construct(
         protected string $titular,
-        private float $saldo = 0
+        protected float $saldo = 0
     ) {}
 
     public function getSaldo(): float {
@@ -33,4 +33,3 @@ class CuentaBancaria {
         $this->saldo -= $cantidad;
     }
 }
-?>
