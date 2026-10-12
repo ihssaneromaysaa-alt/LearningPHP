@@ -14,7 +14,7 @@ class CuentaAhorro extends CuentaBancaria {
 
     public function resumen(): string {
         return "Titular: " . $this->titular .
-               " | Saldo: " . $this->saldo .
+               " | Saldo: " . $this->getSaldo() .
                " | Interés: " . $this->interes;
     }
 }

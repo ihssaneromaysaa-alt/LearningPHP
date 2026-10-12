@@ -8,7 +8,6 @@
 <body>
     <?php 
     require_once __DIR__ . "/src/CuentaAhorro.php";
-    require_once __DIR__ . "/src/CuentaBancaria.php";
     $cuenta = new CuentaBancaria("manolo", 23.5);
     echo "<h2>cuenta bancaria</h2>";
 
