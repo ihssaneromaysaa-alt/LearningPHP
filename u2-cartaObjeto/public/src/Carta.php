@@ -1,27 +1,51 @@
 <?php
 
-class Carta{
-    const array PALOS=["ESPADAS", "OROS", "COPAS", "BASTOS"];
-    const array NUMEROS=[1=>"as",2=>"dos",3=>"tres",4=>"cuatro",5=>"cinco",6=>"as",7=>"siete",8=>"ocho",9=>"nueve",10=>"sota",11=>"caballo",12=>"rey"];
+class Carta
+{
+    public const PALOS = ["ESPADAS", "OROS", "COPAS", "BASTOS"];
+
+    public const NUMEROS = [
+        1  => "as",
+        2  => "dos",
+        3  => "tres",
+        4  => "cuatro",
+        5  => "cinco",
+        6  => "seis",
+        7  => "siete",
+        8  => "ocho",
+        9  => "nueve",
+        10 => "sota",
+        11 => "caballo",
+        12 => "rey"
+    ];
+
     public function __construct(
         private int $numero,
         private string $palo
     ) {
-        try{
-            if(!array_key_exists($numero,self::NUMEROS))
-                throw new Exception("no existe ese número");
-            if(in_array($palo,self::PALOS))
-                throw new Exception("no existe ese palo");
-        }catch(Exception $e){
-            echo "ERROR: ".$e->getMessage();
+        if (!array_key_exists($this->numero, self::NUMEROS)) {
+            throw new InvalidArgumentException("No existe ese número");
+        }
+        if (!in_array($this->palo, self::PALOS, true)) {
+            throw new InvalidArgumentException("No existe ese palo");
         }
     }
-    function toString():string{
-        $cadena="";
-        
-        return $cadena;
+
+    public function toString(): string
+    {
+        return self::NUMEROS[$this->numero] . " de " . $this->palo;
     }
 
+    // Optional getters if you need them later
+    public function getNumero(): int
+    {
+        return $this->numero;
+    }
+
+    public function getPalo(): string
+    {
+        return $this->palo;
+    }
 }
 //baraja española
 //array_key_exists(); in_array(); toString();
