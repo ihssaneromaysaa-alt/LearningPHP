@@ -16,6 +16,9 @@ echo "El costo final para el envío '{$tipo_envio}' ({$peso}kg, {$distancia}km) 
 
 
 /**
+ * HACER EJERCICIOS
+ * NO SE QUÉ CON ENUM
+ * 9,10,EL DEL EXAMEN ENUM
  * class perro{
  * private $name;
  * public function ladra(){
