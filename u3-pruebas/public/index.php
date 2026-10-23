@@ -32,6 +32,25 @@ require_once __DIR__ . "/src/Cliente.php";
 // interes (private, float), recibido en el constructor.
 // resumen(): devuelve una cadena con el titular y el saldo (por ejemplo, "Titular: Ana | Saldo: 500 €"). Debe usar $this->titular directamente y getSaldo() para el saldo.
 // Prueba el código desde fuera de las clases e indica qué ocurre al ejecutar $cuenta->saldo y $cuenta->titular.
-    ?>
+    
+    
+    
+// autoloadorer
+/**
+ * Registra una función de autocarga.
+ * Esta función se llamará automáticamente cada vez que se intente
+ * usar una clase que aún no haya sido cargada.
+ */
+spl_autoload_register(function (string $clase): void {
+       // Reemplaza las barras invertidas del namespace (\) por barras de directorio (/)
+    $archivo = __DIR__ . '/src/'
+        . str_replace('\\', '/', $clase)
+        . '.php';
+
+    if (is_file($archivo)) {    // Comprueba si el archivo PHP para esa clase existe
+        require_once $archivo;
+    }
+});
+?>
 </body>
 </html>

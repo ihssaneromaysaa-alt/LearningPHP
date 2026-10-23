@@ -41,7 +41,7 @@ $repartoParado = $resumen['peso'] >= PARAR_CARGA;
                 carga: <?= formatearKilos($linea['carga']) ?>
             <?php else: ?>
                 RECHAZADO |
-            <!--enum-->
+            <!--enum, para sacar el string-->
                 <?= $linea['resultado']->value?>
             <?php endif; ?>
         </p>

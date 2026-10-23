@@ -1,0 +1,135 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f7f8f5;
+    color: #26352d;
+}
+
+/* HEADER */
+.header {
+    background-color: #173b2d;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 3px solid #c6a45c;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    margin: 0;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #dfc47e;
+}
+
+/* NAVEGACIÓN */
+.nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav a {
+    display: block;
+    color: #f5f5f0;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 13px;
+    border-radius: 5px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav a:hover {
+    background-color: #285541;
+    color: #f0d58e;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 50px;
+    padding: 28px 15px 18px;
+    background-color: #173b2d;
+    color: #e9eee9;
+    text-align: center;
+    border-top: 3px solid #c6a45c;
+}
+
+.footer p {
+    margin: 8px 0;
+}
+
+.footer-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #dfc47e;
+}
+
+.copyright {
+    margin-top: 20px !important;
+    font-size: 12px;
+    color: #bdc9c0;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 650px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 12px;
+    }
+
+    .nav ul {
+        justify-content: center;
+    }
+
+    .nav a {
+        padding: 9px;
+        font-size: 13px;
+    }
+}
+/* Espacio alrededor del contenido de las cartas */
+main {
+    width: 86%;
+    max-width: 1200px;
+    margin: 35px auto;
+}
+
+/* Separación entre las cartas */
+.cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 650px) {
+    main {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .cartas {
+        gap: 12px;
+        padding: 8px;
+    }
+}
