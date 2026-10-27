@@ -1,3 +1,3 @@
 <?php
-define('CONTROLLER_DEFAULT','Baraja');
-define('ACTION_DEFAULT','muestraBaraja');
+define('CONTROLLER_DEFAULT','Dashboard');
+define('ACTION_DEFAULT','index');

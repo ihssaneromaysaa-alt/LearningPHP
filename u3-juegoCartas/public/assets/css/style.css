@@ -1,9 +1,38 @@
 /* Estilos generales */
-body {
+
+/* Estilos generales */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
     margin: 0;
+    padding: 0;
+}
+
+
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f7f8f5;
     color: #26352d;
+
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+    width: 86%;
+    max-width: 1200px;
+    margin: 35px auto;
 }
 
 /* HEADER */
@@ -64,11 +93,14 @@ body {
 
 /* FOOTER */
 .footer {
-    margin-top: 50px;
+    margin-top: auto;
+    margin-top: 0;
     padding: 28px 15px 18px;
+
     background-color: #173b2d;
     color: #e9eee9;
     text-align: center;
+
     border-top: 3px solid #c6a45c;
 }
 
@@ -104,12 +136,6 @@ body {
         padding: 9px;
         font-size: 13px;
     }
-}
-/* Espacio alrededor del contenido de las cartas */
-main {
-    width: 86%;
-    max-width: 1200px;
-    margin: 35px auto;
 }
 
 /* Separación entre las cartas */
