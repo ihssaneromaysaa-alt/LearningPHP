@@ -45,4 +45,41 @@ class BarajaController{
             'titulo' => 'Carta extraída'
         ]);
     }
+    /*
+    public function sacarCarta(string $palo, int $numero){
+        $resultado = isset($_POST["palo"]) && isset($_POST["numero"]) ? $_POST["palo"]. " " .$_POST["numero"] : "null";
+        ($resultado === null)?$carta = new Carta($_POST["numero"], $_POST["palo"]) : "";
+
+
+        function comprobarPassword(string $contrasenia)
+        {
+            $arrayRegex = [
+                '/^.{6,15}$/',
+                '/[0-9]/',
+                '/[a-z]/',
+                '/[A-Z]/',
+                '/[^a-zA-Z0-9]/'
+            ];
+            
+            $cumple = true;
+
+            foreach ($arrayRegex as $regex) {
+                if (!preg_match($regex, $contrasenia)) 
+                    $cumple = false;
+            }
+            return $cumple;
+        }
+
+        function imprimirPassValido (bool $isValid){
+            $respuesta = "";
+            if($isValid) 
+                $respuesta = "Contraseña Valida";
+            else
+                $respuesta = "Contraseña Invalida";
+
+            return $respuesta;
+        }
+
+    }
+*/
 }
