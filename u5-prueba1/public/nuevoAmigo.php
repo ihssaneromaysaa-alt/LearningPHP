@@ -1,14 +1,27 @@
 <?php
 declare(strict_types=1);
 
-$nombre = htmlspecialchars($_POST['nombre'] ?? '',ENT_QUOTES,'UTF-8');
-$apellido = htmlspecialchars($_POST['apellido'] ?? '',ENT_QUOTES,'UTF-8');
+$contacto = $_POST['contacto'] ?? [];
+
+$nombre = htmlspecialchars(
+    is_string($contacto['nombre'] ?? null) ? $contacto['nombre'] : '',
+    ENT_QUOTES,
+    'UTF-8'
+);
+
+$apellido = htmlspecialchars(
+    is_string($contacto['apellido'] ?? null) ? $contacto['apellido'] : '',
+    ENT_QUOTES,
+    'UTF-8'
+);
+
+$marcar = $contacto['marcar'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos recibidos</title>
 </head>
 <body>
@@ -18,8 +31,12 @@ $apellido = htmlspecialchars($_POST['apellido'] ?? '',ENT_QUOTES,'UTF-8');
         <?= $nombre !== '' ? $nombre : 'No especificado' ?>
     </p>
 
-    <p><strong>Apellidos:</strong>
+    <p><strong>Apellido:</strong>
         <?= $apellido !== '' ? $apellido : 'No especificado' ?>
+    </p>
+
+    <p><strong>Términos aceptados:</strong>
+        <?= $marcar === '1' ? 'Sí' : 'No' ?>
     </p>
 
     <h2>Datos recibidos por POST</h2>

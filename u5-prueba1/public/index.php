@@ -10,16 +10,16 @@
     <form action="nuevoAmigo.php" method="post">
         <p>
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required></input>
+            <input type="text" id="nombre" name="contacto[nombre]" required></input>
         </p>
 
         <p>
             <label for="apellido">Apellido</label>
-            <input type="text" id="apellido" name="apellido" required></input>
+            <input type="text" id="apellido" name="contacto[apellido]" required></input>
         </p>
 
         <p>
-            <input type="checkbox" name="marcar" id="marcar" value="1" required></input>
+            <input type="checkbox" name="contacto[marcar]" id="marcar" value="1" required></input>
             <label for="marcar">Aceptar los términos y condiciones</label>
         </p>
 
