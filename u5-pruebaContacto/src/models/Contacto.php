@@ -5,7 +5,7 @@ namespace Models;
 class Contacto{
     public function __construct(
         public string $nombre = '',
-        public string $apellidos = '',
+        public string $apellido = '',
         public string $correo = '',
         public array $metodosPago = [],
         public bool $marcar = false,
@@ -13,10 +13,25 @@ class Contacto{
     public static function fromArray(array $datos): self{
         return new self(
             trim($datos['nombre']??''),
-            trim($datos['apellidos']??''),
+            trim($datos['apellido']??''),
             trim($datos['correo']??''),
             ($datos['metodosPago']??[]),
-            ($datos['marcar']??false)
+            (bool)($datos['marcar']??false)
         );
+    }
+    public function getNombre(): string{
+        return $this->nombre;
+    }
+    public function getApellido(): string{
+        return $this->apellido;
+    }
+    public function getMarcar(): bool{
+        return $this->marcar;
+    }
+    public function getCorreo(): string{
+        return $this->correo;
+    }
+    public function getMetodosPago(): array{
+        return $this->metodosPago;
     }
 }
