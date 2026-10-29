@@ -18,14 +18,12 @@
 
         <p>
             
-        <label for="metodoPago">Seleccione método de pago</label>
-        <select name="metodoPago" name="contacto[metodosPago][]" multiple size="3">
-            <option value="VISA" selected> VISA</option>
-            <option value="MASTERCARD"> MASTERCARD</option>
-            <option value="BIZUM"> BIZUM</option>
-
-        </select>
-        </p>
+        <label for="metodosPago">Seleccione método de pago</label>
+        <select id="metodosPago" name="contacto[metodosPago][]" multiple size="3">
+            <option value="VISA" selected>VISA</option>
+            <option value="MASTERCARD">MASTERCARD</option>
+            <option value="BIZUM">BIZUM</option>
+        </select></p>
         <p>
             <input type="checkbox" name="contacto[marcar]" id="marcar" value="1" required></input>
             <label for="marcar">Aceptar los términos y condiciones</label>

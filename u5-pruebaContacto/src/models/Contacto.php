@@ -5,7 +5,7 @@ namespace Models;
 class Contacto{
     public function __construct(
         public string $nombre = '',
-        public string $apellido = '',
+        public string $apellidos = '',
         public string $correo = '',
         public array $metodosPago = [],
         public bool $marcar = false,
@@ -15,15 +15,15 @@ class Contacto{
             trim($datos['nombre']??''),
             trim($datos['apellido']??''),
             trim($datos['correo']??''),
-            ($datos['metodosPago']??[]),
+            ($datos['metodosPago'] ?? []),
             (bool)($datos['marcar']??false)
         );
     }
     public function getNombre(): string{
         return $this->nombre;
     }
-    public function getApellido(): string{
-        return $this->apellido;
+    public function getApellidos(): string{
+        return $this->apellidos;
     }
     public function getMarcar(): bool{
         return $this->marcar;
@@ -31,7 +31,7 @@ class Contacto{
     public function getCorreo(): string{
         return $this->correo;
     }
-    public function getMetodosPago(): array{
+    public function getmetodosPago(): array{
         return $this->metodosPago;
     }
 }
