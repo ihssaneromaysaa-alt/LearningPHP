@@ -5,7 +5,10 @@ namespace Controllers;
 
 use Lib\Pages;
 use Models\Usuario;
-
+use Requests\UsuarioRequests;
+/**
+ * sane valida, y comprueba que es la contraseña y muestra la página de bienvenida ya
+ */
 class AuthController
 {
     private Pages $page;
@@ -25,12 +28,24 @@ class AuthController
             ]);
             return;
         }
-        $usuarioEnviado  = trim($_POST['usuario']['usuario'] ?? '');
-        $passwordEnviada = $_POST['usuario']['password'] ?? '';
+        $request = new UsuarioRequests($_POST['usuario']);
+        /*
+        $usuarioEnviado  = $_POST['usuario']['usuario'];
+        $passwordEnviada = $_POST['usuario']['password'];
+        $entrada = ['usuario' => $_POST['usuario']['usuario'], 'contraseña' => $_POST['usuario']['password'] ];*/
+        
+        /*
         $usuarioValido = [
             'usuario'  => 'Usuario',
             'password' => password_hash('1234', PASSWORD_BCRYPT) 
         ];
+        if (!$request->esValido()) {
+            $this->page->render('contacto/formulario', [
+                'errores' => $request->errores(),
+                'datos'   => $request->datos(),
+            ]);
+            return;
+        }
         if (
             $usuarioEnviado === $usuarioValido['usuario'] &&
             password_verify($passwordEnviada, $usuarioValido['password'])
@@ -42,7 +57,7 @@ class AuthController
         $this->page->render('usuario/formulario', [
             'errores' => ['login' => 'Usuario o contraseña incorrectos'],
             'datos'   => ['usuario' => $usuarioEnviado],
-        ]);
+        ]);*/
     }
     public function bienvenida(): void{
         $usuario = $_GET['usuario'] ?? 'Usuario';
