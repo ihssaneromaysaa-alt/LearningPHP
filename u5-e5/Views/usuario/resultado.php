@@ -10,7 +10,6 @@ use function Lib\e;
 <p><strong>Contraseña:</strong>
  <?= ($usuario->cont) ?: 'No indicados' ?>
 </p>
-<p><strong>Correo electrónico:</strong> <?= ($usuario->correo) ?></p>
  <a href="index.php?controller=usuario&amp;action=formulario">
  Volver al formulario </a>
 </p>
