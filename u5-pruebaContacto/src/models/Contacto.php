@@ -13,7 +13,7 @@ class Contacto{
     public static function fromArray(array $datos): self{
         return new self(
             trim($datos['nombre']??''),
-            trim($datos['apellido']??''),
+            trim($datos['apellidos']??''),
             trim($datos['correo']??''),
             ($datos['metodosPago'] ?? []),
             (bool)($datos['marcar']??false)
