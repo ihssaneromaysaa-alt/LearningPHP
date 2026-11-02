@@ -1,69 +1,78 @@
 <?php
 declare(strict_types=1);
-namespace Controllers;
 
+namespace Controllers;
 
 use Lib\Pages;
 use Models\Usuario;
 use Requests\UsuarioRequests;
+
 /**
- * sane valida, y comprueba que es la contraseña y muestra la página de bienvenida ya
+ * sanea y valida los datos, comprueba las credenciales (simuladas)
+ * y redirige a la bienvenida o a la pagina de error.
  */
 class AuthController
 {
     private Pages $page;
     private Usuario $usuario;
+
     public function __construct()
     {
         $this->page = new Pages();
-        $this->usuario = new Usuario("usuario","1234");
+        // "base de datos" simulada: usuario / 1234
+        $this->usuario = new Usuario('usuario', '1234');
     }
+
+    // get: muestra el formulario. post: valida y comprueba las credenciales
     public function formulario(): void
     {
-        // Si es GET → mostrar el formulario
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->page->render('usuario/formulario', [
                 'errores' => [],
-                'datos'   => [],
-            ]);
+                'datos' => [],
+            ], 'iniciar sesión');
             return;
         }
-        $request = new UsuarioRequests($_POST['usuario']);
-        /*
-        $usuarioEnviado  = $_POST['usuario']['usuario'];
-        $passwordEnviada = $_POST['usuario']['password'];
-        $entrada = ['usuario' => $_POST['usuario']['usuario'], 'contraseña' => $_POST['usuario']['password'] ];*/
-        
-        /*
-        $usuarioValido = [
-            'usuario'  => 'Usuario',
-            'password' => password_hash('1234', PASSWORD_BCRYPT) 
-        ];
-        if (!$request->esValido()) {
-            $this->page->render('contacto/formulario', [
-                'errores' => $request->errores(),
-                'datos'   => $request->datos(),
-            ]);
-            return;
-        }
-        if (
-            $usuarioEnviado === $usuarioValido['usuario'] &&
-            password_verify($passwordEnviada, $usuarioValido['password'])
-        ){
-            header('Location: index.php?controller=auth&action=bienvenida&usuario=' . urlencode($usuarioEnviado));
-            exit;
-        }
-        // Login incorrecto → volver a mostrar el formulario con error
-        $this->page->render('usuario/formulario', [
-            'errores' => ['login' => 'Usuario o contraseña incorrectos'],
-            'datos'   => ['usuario' => $usuarioEnviado],
-        ]);*/
-    }
-    public function bienvenida(): void{
-        $usuario = $_GET['usuario'] ?? 'Usuario';
 
-        echo "<h1>Bienvenido, " . htmlspecialchars($usuario) . "</h1>";
-        echo "<p>Has iniciado sesión correctamente.</p>";
-        echo "<a href='index.php?controller=usuario&amp;action=formulario'>Regresar al formulario</a>";
+        // los campos llegan como usuario[usuario] y usuario[password]
+        $entrada = $_POST['usuario'] ?? [];
+        $request = new UsuarioRequests(is_array($entrada) ? $entrada : []);
+
+        // datos mal formados (vacios, demasiado largos...): se vuelve a pintar el formulario
+        if (!$request->esValido()) {
+            $this->page->render('usuario/formulario', [
+                'errores' => $request->errores(),
+                // la contraseña nunca se devuelve al formulario
+                'datos' => ['usuario' => $request->datos()['usuario']],
+            ], 'iniciar sesión');
+            return;
+        }
+
+        $datos = $request->datos();
+
+        // credenciales correctas: redirige a la bienvenida
+        if ($this->usuario->comprobar($datos['usuario'], $datos['password'])) {
+            $this->redirigir('bienvenida');
+        }
+
+        // credenciales incorrectas: redirige a la pagina de error
+        $this->redirigir('error');
+    }
+
+    public function bienvenida(): void
+    {
+        $this->page->render('usuario/bienvenida', [], 'bienvenida');
+    }
+
+    public function error(): void
+    {
+        $this->page->render('usuario/error', [], 'acceso denegado');
+    }
+
+    // redireccion con header(): debe ejecutarse antes de imprimir nada
+    private function redirigir(string $accion): never
+    {
+        header('Location: index.php?controller=auth&action=' . $accion);
+        exit;
     }
 }

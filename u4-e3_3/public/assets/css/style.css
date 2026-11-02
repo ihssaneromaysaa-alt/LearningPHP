@@ -1,0 +1,300 @@
+
+/* RESET GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+.header {
+    background-color: #202938;
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 26px;
+    color: white;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: #60a5fa;
+}
+
+/* CONTENIDO */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    flex: 1;
+}
+
+.page-title {
+    margin-bottom: 15px;
+    font-size: 30px;
+    color: #202938;
+}
+
+.page-description {
+    color: #777;
+    margin-bottom: 25px;
+}
+
+/* BIENVENIDA */
+.bienvenida {
+    text-align: center;
+    background-color: white;
+    padding: 70px 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    margin-top: 40px;
+}
+
+.bienvenida-icono {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.bienvenida h2 {
+    font-size: 32px;
+    color: #202938;
+    margin-bottom: 20px;
+}
+
+.bienvenida p {
+    color: #777;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* TABLAS */
+.table-container {
+    background-color: white;
+    border-radius: 10px;
+    overflow-x: auto;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #202938;
+    color: white;
+}
+
+th, td {
+    padding: 16px;
+    text-align: center;
+}
+
+th {
+    font-size: 14px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+tbody tr:hover {
+    background-color: #eaf2ff;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+td a:not(.btn-small) {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+td a:not(.btn-small):hover {
+    text-decoration: underline;
+}
+
+/* DISPONIBILIDAD */
+.disponible {
+    color: #15803d;
+    background-color: #dcfce7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.prestado {
+    color: #b45309;
+    background-color: #fef3c7;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* BOTONES */
+.btn {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-small {
+    display: inline-block;
+    background-color: #2563eb;
+    color: white !important;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.btn-small:hover {
+    background-color: #1d4ed8;
+}
+
+/* DETALLE */
+.detalle-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    line-height: 2;
+}
+
+.detalle-card h3 {
+    color: #202938;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.detalle-card .subtitulo {
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+.lista-libros {
+    margin: 15px 0 25px;
+}
+
+.libro-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.libro-item p {
+    color: #777;
+    font-size: 14px;
+}
+
+.mensaje-error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #202938;
+    color: #cbd5e1;
+    padding: 25px 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+}
+
+.footer p {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 650px) {
+
+    .header-container {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    th, td {
+        padding: 12px 8px;
+        font-size: 13px;
+    }
+
+    .bienvenida h2 {
+        font-size: 25px;
+    }
+
+    .libro-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

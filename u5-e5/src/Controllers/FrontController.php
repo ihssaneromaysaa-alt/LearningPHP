@@ -2,48 +2,45 @@
 declare(strict_types=1);
 
 namespace Controllers;
-
 /**
  * Controlador frontal: único punto de entrada de la aplicación.
+ *
+ * Lee ?controller=...&action=... de la URL, comprueba que existen
+ * y llama a la acción. Si no es válido, muestra un error 404.
+ *
+ * Requiere las constantes CONTROLLER_DEFAULT y ACTION_DEFAULT (config/config.php).
  */
 class FrontController
 {
     public static function main(): void
     {
+        // Controlador y acción: los de la URL o los predeterminados
         $controller_name = $_GET['controller'] ?? CONTROLLER_DEFAULT;
-        $action_name     = $_GET['action'] ?? ACTION_DEFAULT;
+        $action_name = $_GET['action'] ?? ACTION_DEFAULT;
 
+
+        // Construimos el nombre completo de la clase: baraja -> Controllers\BarajaController
         $nombre_controlador = 'Controllers\\' . ucfirst($controller_name) . 'Controller';
 
-        // Nombres prohibidos (como string, no hace falta que la clase exista aún)
-        $prohibidos = [
-            self::class,                    // Controllers\FrontController
-            'Controllers\ErrorController',  // string → no fuerza el autoload aquí
-        ];
-
-        if (!class_exists($nombre_controlador) || in_array($nombre_controlador, $prohibidos, true)) {
-            // Aquí sí se necesita la clase; class_exists + autoload o require
-            if (class_exists(ErrorController::class)) {
-                ErrorController::show_error404();
-            } else {
-                // Fallback por si el autoload falla también aquí
-                http_response_code(404);
-                echo 'Error 404: página no encontrada';
-            }
+        // El controlador debe existir y no pueden invocarse el frontal ni el de errores
+        if (
+            !class_exists($nombre_controlador)
+            || in_array($nombre_controlador, [self::class, ErrorController::class], true)
+        ) {
+            ErrorController::show_error404();
             return;
         }
 
         $controlador = new $nombre_controlador();
 
+        // is_callable comprueba si ese método está en la clase y
+        // además comprueba si quien pregunta puede llamarlo
+        //respeta la visibilidad: los métodos privados no cuentan
         if (is_callable([$controlador, $action_name])) {
             $controlador->$action_name();
         } else {
-            if (class_exists(ErrorController::class)) {
-                ErrorController::show_error404();
-            } else {
-                http_response_code(404);
-                echo 'Error 404: página no encontrada';
-            }
+            ErrorController::show_error404();
         }
     }
+
 }
