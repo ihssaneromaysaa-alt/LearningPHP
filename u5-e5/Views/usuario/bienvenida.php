@@ -1,7 +1,13 @@
-
 <section class="tarjeta">
-    <h1>Bienvenido</h1>
-    <div class="alerta alerta-ok">Has iniciado sesión correctamente.</div>
+    <h1>
+        Bienvenido <?= htmlspecialchars($usuario, ENT_QUOTES, 'UTF-8') ?>
+    </h1>
 
-    <a class="boton" href="index.php?controller=auth&action=formulario">Volver al formulario</a>
+    <div class="alerta alerta-ok">
+        Has iniciado sesión correctamente.
+    </div>
+
+    <a class="boton" href="index.php?controller=auth&action=formulario">
+        Volver al formulario
+    </a>
 </section>

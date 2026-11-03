@@ -1,23 +1,28 @@
 <?php
 declare(strict_types=1);
-
 namespace lib;
-
-// clase auxiliar que pinta una vista dentro del layout (cabecera + vista + pie)
-class Pages
-{
-    public static function render(string $vista, array $datos = [], string $titulo = 'aplicación'): void
+class Pages{
+    private const string VIEWS_DIR = __DIR__ . '/../../Views/';
+    public function render(string $pageName, ?array $params = null): void
     {
-        // funcion de escape disponible en todas las vistas como $e(...)
-        $e = fn(mixed $valor): string => htmlspecialchars((string) $valor, ENT_QUOTES, 'UTF-8');
+        if ($params !== null) {
+            foreach ($params as $name => $value) {
+                $$name = $value;
+            }
+        }
 
-        // convierte las claves del array en variables para la vista
-        extract($datos, EXTR_SKIP);
+        $base = self::VIEWS_DIR;
 
-        $raiz = dirname(__DIR__, 2) . '/Views/';
+        $header = $base . 'Layout/header.php';
+        $vista = $base . $pageName . '.php';
+        $footer = $base . 'Layout/footer.php';
 
-        require $raiz . 'layout/header.php';
-        require $raiz . $vista . '.php';
-        require $raiz . 'layout/footer.php';
+        if (!file_exists($vista)) {
+            die('No existe la vista: ' . $vista);
+        }
+
+        require $header;
+        require $vista;
+        require $footer;
     }
 }

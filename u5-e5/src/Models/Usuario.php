@@ -22,4 +22,10 @@ class Usuario
         return hash_equals($this->usuario, $usuario)
             && password_verify($password, $this->hash);
     }
+    public static function fromArray(array $datos): self{
+        return new self(
+            trim($datos['usuario']??''),
+            trim($datos['password']??''),
+        );
+    }
 }

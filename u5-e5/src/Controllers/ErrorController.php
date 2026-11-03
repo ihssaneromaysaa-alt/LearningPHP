@@ -5,12 +5,17 @@ namespace Controllers;
 
 use lib\Pages;
 
-// controlador de errores: lo usa el controlador frontal
 class ErrorController
 {
-    public static function show_error404(): void
+    private Pages $page;
+
+    public function __construct()
     {
-        http_response_code(404);
-        Pages::render('error/error404', [], 'error 404');
+        $this->page = new Pages();
+    }
+
+    public function show_error404(): void
+    {
+        $this->page->render('usuario/error', []);
     }
 }

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Controllers;
 
-use Lib\Pages;
+use lib\Pages;
 use Models\Usuario;
 use Requests\UsuarioRequests;
 
@@ -20,53 +20,66 @@ class AuthController
     {
         $this->page = new Pages();
         // "base de datos" simulada: usuario / 1234
-        $this->usuario = new Usuario('usuario', '1234');
+        $this->usuario = new Usuario('usuario', 'contra1234Ab_');
     }
 
     // get: muestra el formulario. post: valida y comprueba las credenciales
+    
     public function formulario(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->page->render('usuario/formulario', [
                 'errores' => [],
                 'datos' => [],
-            ], 'iniciar sesión');
+            ]);
             return;
         }
 
-        // los campos llegan como usuario[usuario] y usuario[password]
         $entrada = $_POST['usuario'] ?? [];
-        $request = new UsuarioRequests(is_array($entrada) ? $entrada : []);
 
-        // datos mal formados (vacios, demasiado largos...): se vuelve a pintar el formulario
+        $request = new UsuarioRequests(
+            is_array($entrada) ? $entrada : []
+        );
+
         if (!$request->esValido()) {
             $this->page->render('usuario/formulario', [
                 'errores' => $request->errores(),
-                // la contraseña nunca se devuelve al formulario
-                'datos' => ['usuario' => $request->datos()['usuario']],
-            ], 'iniciar sesión');
+                'datos' => [
+                    'usuario' => is_string($entrada['usuario'] ?? null)
+                        ? $entrada['usuario']
+                        : ''
+                ],
+            ]);
             return;
         }
 
         $datos = $request->datos();
-
-        // credenciales correctas: redirige a la bienvenida
-        if ($this->usuario->comprobar($datos['usuario'], $datos['password'])) {
-            $this->redirigir('bienvenida');
+        
+        // comprobar las credenciales
+        if ($this->usuario->comprobar(
+            $datos['usuario'],
+            $datos['password']
+        )) {
+            $this->page->render('usuario/bienvenida', [
+                'usuario' => $datos['usuario']
+            ]);
+            return;
         }
-
-        // credenciales incorrectas: redirige a la pagina de error
-        $this->redirigir('error');
-    }
-
-    public function bienvenida(): void
-    {
-        $this->page->render('usuario/bienvenida', [], 'bienvenida');
+        
+        // credenciales incorrectas
+        $this->page->render('usuario/formulario', [
+            'errores' => [
+                'login' => 'Usuario o contraseña incorrectos.'
+            ],
+            'datos' => [
+                'usuario' => $datos['usuario']
+            ]
+        ]);
     }
 
     public function error(): void
     {
-        $this->page->render('usuario/error', [], 'acceso denegado');
+        $this->page->render('usuario/error', []);
     }
 
     // redireccion con header(): debe ejecutarse antes de imprimir nada

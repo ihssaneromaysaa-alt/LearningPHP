@@ -43,8 +43,9 @@ final class UsuarioRequests
 
     private function validar(): void
     {
+        
         $d = $this->datos;
-
+        
         // usuario
         if ($d['usuario'] === '') {
             $this->errores['usuario'] = 'El usuario es obligatorio.';
@@ -60,8 +61,15 @@ final class UsuarioRequests
         // (la politica de contraseña fuerte se aplica al registrar, no al entrar)
         if ($d['password'] === '') {
             $this->errores['password'] = 'La contraseña es obligatoria.';
-        } elseif (mb_strlen($d['password']) > 255) {
-            $this->errores['password'] = 'La contraseña es demasiado larga.';
+        } elseif (mb_strlen($d['password']) < 12) {
+            $this->errores['password'] = 'La contraseña debe tener al menos 12 caracteres.';
+        } elseif (!preg_match('/[A-Z]/', $d['password'])) {
+            $this->errores['password'] = 'La contraseña debe tener al menos una mayúscula.';
+        } elseif (!preg_match('/[a-z]/', $d['password'])) {
+            $this->errores['password'] = 'La contraseña debe tener al menos una minúscula.';
+        } elseif (!preg_match('/[#._$_-]/', $d['password'])) {
+            $this->errores['password'] = 'La contraseña debe tener al menos un carácter especial: #, ., _, $ o -.';
         }
     }
 }
+// #.$-_ mayoscula, minuscula , min 12 caract
