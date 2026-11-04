@@ -69,7 +69,7 @@ class AuthController
         // credenciales incorrectas
         $this->page->render('usuario/formulario', [
             'errores' => [
-                'login' => 'Usuario o contraseña incorrectos.'
+                'login' => 'Usuario no registrado.'
             ],
             'datos' => [
                 'usuario' => $datos['usuario']
