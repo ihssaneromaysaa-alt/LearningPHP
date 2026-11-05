@@ -1,63 +1,43 @@
+
 <?php
 
-$resultado = crearFichero();
-if ($resultado['status'] === true) {
-    $recurso = $resultado['data'];
+// definimos las rutas de los directorios y archivos
+$directorio = __DIR__ . '/mi_directorio';
+$archivoOriginal = __DIR__ . '/assets/prueba.txt';
+$archivoCopia = $directorio . '/prueba.txt';
 
-    leerArchivoCaracterACaracter($recurso);
-    // descargar(__DIR__ . '/assets/prueba.txt'); // opcional
+// comprobamos que existe el archivo original
+if (!is_file($archivoOriginal))
+    die("Error: El archivo original no existe.");
+
+
+// comprobamos si existe el directorio
+if (!is_dir($directorio)) {
+    echo "El directorio no existe. Vamos a crearlo.<br>";
+    // creamos el directorio
+    if (mkdir($directorio, 0755)) {
+        echo "Directorio creado correctamente.<br>";
+        // copiamos el archivo de texto dentro
+        if (copy($archivoOriginal, $archivoCopia)) {
+            echo "Archivo copiado correctamente.<br>";
+            // recorremos el directorio con DirectoryIterator
+            echo "<h3>Contenido del directorio:</h3>";
+            try {
+                $iterador = new DirectoryIterator($directorio);
+                foreach ($iterador as $elemento)
+                    // evitamos mostrar los elementos . y ..
+                    if (!$elemento->isDot())
+                        echo htmlspecialchars($elemento->getFilename()) . "<br>";
+            } catch (UnexpectedValueException $error) {
+                echo "Error al leer el directorio: "
+                    . htmlspecialchars($error->getMessage());
+            }
+
+        } else
+            echo "Error: No se pudo copiar el archivo.";
+    } else 
+        echo "Error: No se pudo crear el directorio.";
 } else {
-    echo $resultado['message'];
-}
-
-function leerArchivoCaracterACaracter($recurso): void
-{
-    while (($caracter = fgetc($recurso)) !== false) {
-        echo htmlspecialchars($caracter); 
-    }
-    fclose($recurso);
-}
-
-function abrirFicheroSiLegible(string $rutaFichero): array
-{
-    if (!is_file($rutaFichero)) {
-        return ['status' => false, 'message' => 'el fichero no existe'];
-    }
-    if (!is_readable($rutaFichero)) {
-        return ['status' => false, 'message' => 'no tiene permiso de lectura'];
-    }
-    $recurso = fopen($rutaFichero, 'r');
-    if ($recurso === false) {
-        return ['status' => false, 'message' => 'no se pudo abrir el fichero'];
-    }
-    return ['status' => true, 'data' => $recurso];
-}
-
-function crearFichero(): array
-{
-    $ruta = __DIR__ . '/assets/prueba.txt';
-
-    if (!is_dir(__DIR__ . '/assets')) {
-        mkdir(__DIR__ . '/assets', 0755, true);
-    }
-
-    file_put_contents($ruta, "Hola mundo\nEsto es una prueba\nCaracter a caracter");
-
-    return abrirFicheroSiLegible($ruta);
-}
-
-function descargar(string $fichero): void
-{
-    if (!is_file($fichero)) {
-        http_response_code(404);
-        echo 'El archivo no existe.';
-        exit;
-    }
-
-    header('Content-Type: text/plain; charset=utf-8');
-    header('Content-Disposition: attachment; filename="ejemplo.txt"');
-    header('Content-Length: ' . filesize($fichero));
-
-    readfile($fichero);
-    exit;
+    // si el directorio ya existe
+    echo "El directorio ya existe. No es necesario crearlo.";
 }
