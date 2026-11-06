@@ -58,11 +58,6 @@ class AuthController
         $datos = $request->datos();
         $archivo = $request->archivo();
 
-        // mover el archivo
-        $nombreFinal = uniqid('foto_', true) . '.' . pathinfo($archivo['name'], PATHINFO_EXTENSION);
-        // uniqid genera un id único para crear un nombre nuevo
-        $rutaDestino = __DIR__ . '/../../public/uploads/' . $nombreFinal;
-        
 
         // comprobar las credenciales
         $entrada = $_POST['usuario'] ?? [];
@@ -135,9 +130,12 @@ class AuthController
             }
 
             // iniciar la sesión
-
+            $datos = $request->datos();
+            $array = ['usuario'=>$datos['usuario'],'hash'=>$datos['password'],'foto'=>$nombreFinal];
+            $usuario = Usuario::fromArray($array);
+            die(var_dump($usuario));
             $this->page->render('usuario/bienvenida', [
-                'usuario' => $datos['usuario']
+                'usuario' => $usuario->getUsuario()
             ], 'Bienvenida');
 
             return;
@@ -152,5 +150,6 @@ class AuthController
                 'usuario' => $datos['usuario']
             ]
         ]);
+        
     }
 }

@@ -32,13 +32,13 @@
 
         <div class="campo">
             <label for="foto">Foto</label>
-            <!-- la contraseña nunca se vuelve a escribir en el value -->
             <input type="file" id="foto" name="foto" accept="image/*"
-                   class="<?= isset($errores['foto']) ? 'invalido' : '' ?>">
+                   class="<?= isset($errores['foto']) ? 'invalido' : '' ?>" autocomplete="off">
             <?php if (isset($errores['foto'])): ?>
                 <div class="error-campo"><?= $e($errores['foto']) ?></div>
             <?php endif; ?>
         </div>
+        
 
         <button class="boton" type="submit">Iniciar sesión</button>
     </form>
