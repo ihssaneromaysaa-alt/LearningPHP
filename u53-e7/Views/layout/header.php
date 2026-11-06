@@ -6,9 +6,9 @@
     <title><?= $e($titulo) ?></title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="tema-<?= $e(TEMA) ?>">
+<body>
 <header class="cabecera">
-    <a href="/">⌂ inicio</a>
+    <a href="index.php">⌂ inicio</a>
     <span><?= $e($titulo) ?></span>
 </header>
 <main class="contenedor">

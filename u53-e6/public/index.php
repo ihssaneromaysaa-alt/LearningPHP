@@ -26,8 +26,11 @@ if (!is_dir($directorio)) {
                 $iterador = new DirectoryIterator($directorio);
                 foreach ($iterador as $elemento)
                     // evitamos mostrar los elementos . y ..
-                    if (!$elemento->isDot())
-                        echo htmlspecialchars($elemento->getFilename()) . "<br>";
+                    if (!$elemento->isDot()){
+                            echo htmlspecialchars($elemento->getFilename()) . "<br>";
+                            var_dump($elemento->getFilename());
+                            var_dump($directorio);
+                        }
             } catch (UnexpectedValueException $error) {
                 echo "Error al leer el directorio: "
                     . htmlspecialchars($error->getMessage());
