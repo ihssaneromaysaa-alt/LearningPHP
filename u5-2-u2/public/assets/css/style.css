@@ -1,0 +1,93 @@
+/* estilos generales de la aplicación */
+.tema-azul { --acento:#2563eb; --acento-osc:#1e3a8a; --fondo:#eff6ff; }
+
+:root {
+    --texto:#1e293b;
+    --borde:#cbd5e1;
+    --ok:#15803d;
+    --ok-fondo:#dcfce7;
+    --error:#b91c1c;
+    --error-fondo:#fee2e2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.5;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--acento);
+    color: #fff;
+    padding: 1rem 2rem;
+    font-weight: 600;
+}
+
+.cabecera a { color: #fff; text-decoration: none; }
+
+.contenedor { max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+
+.tarjeta {
+    background: #fff;
+    border-radius: 14px;
+    padding: 2rem;
+    border-top: 6px solid var(--acento);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .08);
+    margin-bottom: 1.5rem;
+}
+
+h1 { margin-top: 0; color: var(--acento-osc); }
+h2 { color: var(--acento-osc); font-size: 1.15rem; }
+
+.campo { margin-bottom: 1.1rem; }
+label { display: block; font-weight: 600; margin-bottom: .3rem; }
+
+input:not([type=checkbox]):not([type=radio]) {
+    width: 100%;
+    padding: .6rem .75rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font: inherit;
+    background: #fff;
+}
+
+input:focus { outline: 2px solid var(--acento); border-color: var(--acento); }
+
+.ayuda { color: #64748b; font-size: .85rem; }
+
+.boton {
+    display: inline-block;
+    background: var(--acento);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: .65rem 1.3rem;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton:hover { background: var(--acento-osc); }
+
+.alerta { padding: .9rem 1.1rem; border-radius: 10px; margin-bottom: 1.2rem; }
+.alerta-error { background: var(--error-fondo); color: var(--error); }
+.alerta-ok { background: var(--ok-fondo); color: var(--ok); }
+
+table.datos { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+table.datos th, table.datos td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--borde); }
+table.datos th { background: var(--fondo); color: var(--acento-osc); }
+
+.pie { text-align: center; padding: 2rem 1rem; color: #64748b; font-size: .85rem; }
+
+@media (max-width: 600px) {
+    .tarjeta { padding: 1.25rem; }
+    .cabecera { padding: 1rem; }
+}
