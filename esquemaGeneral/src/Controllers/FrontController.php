@@ -42,5 +42,4 @@ class FrontController
             ErrorController::show_error404();
         }
     }
-
 }

@@ -60,9 +60,6 @@ class AuthController
             $datos['usuario'],
             $datos['password']
         )) {
-            session_regenerate_id(true);
-            $_SESSION['usuario'] = $datos['usuario'];
-
             $this->page->render('usuario/bienvenida', [
                 'usuario' => $datos['usuario']
             ], 'Bienvenida');

@@ -8,9 +8,10 @@ use lib\Pages;
 // controlador de errores: lo usa el controlador frontal
 class ErrorController
 {
-    public static function show_error404(): void
+    public static function show_error404(): ? string
     {
         http_response_code(404);
         Pages::render('error/error404', [], 'error 404');
+        return "ERROR 404";
     }
 }
