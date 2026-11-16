@@ -8,5 +8,10 @@
         "nombre": "payo",
         "correo": "pabloPAYEZ@payolandia.es",
         "edad": "43"
+    },
+    {
+        "nombre": "isa",
+        "correo": "isa@email.com",
+        "edad": "18"
     }
 ]
