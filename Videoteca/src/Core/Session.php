@@ -55,7 +55,7 @@ final class Session
         // Etapa 2 (TODO): completar con los 3 pasos del apartado 3.6
         $_SESSION=[];
 
-        if (ini_get('session.use_cookies')) { // 2. borrar la cookie
+        if (ini_get('session.use_cookies')) { // borrar la cookie
         $p = session_get_cookie_params();
         setcookie(session_name(), '', [
         'expires' => time() - 42000,
