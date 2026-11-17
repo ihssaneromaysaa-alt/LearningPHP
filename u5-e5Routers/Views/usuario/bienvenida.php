@@ -7,7 +7,7 @@
         Has iniciado sesión correctamente.
     </div>
 
-    <a class="boton" href="index.php?controller=auth&action=formulario">
+    <a class="boton" href="nuevo">
         Volver al formulario
     </a>
 </section>
