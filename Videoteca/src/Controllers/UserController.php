@@ -12,6 +12,8 @@ final class UserController
 {
     public function perfil(): void
     {
+        if(!Session::has('user_id'))
+            redirect('login');
         // Solo LEE la sesión; nunca la modifica.
         $usuario = (new UserModel())->findById((int) Session::get('user_id'));
 
