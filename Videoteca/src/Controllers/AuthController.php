@@ -40,8 +40,12 @@ final class AuthController
         }
 
         // Login correcto
-        Session::set('user_id', $usuario['id']);
         // (en Etapa 4 añadiremos Session::regenerar() aquí)
+        Session::regenerar();
+        Session::set('user_id', $usuario['id']);
+        
+        
+
         redirect('perfil');
     }
 
