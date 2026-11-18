@@ -23,5 +23,9 @@ final class AuthMiddleware
         // TODO: si no existe 'user_id' en la sesión:
         //       - dejar un flash (Etapa 5): «Debes iniciar sesión para ver esta página»
         //       - redirect('login')  (ya incluye exit)
+        if (!Session::has('user_id')) {
+            // (en Etapa 5 añadiremos el flash aquí)
+            redirect('login');
+        }
     }
 }
