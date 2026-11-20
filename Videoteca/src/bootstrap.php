@@ -25,6 +25,5 @@ echo '</pre>';
 // Etapa 6: aquí se llamará a Session::comprobarCaducidad();
 
 Session::comprobarCaducidad();
-Router::dispatch();
 // Evalúa la URL recibida y ejecuta la función/controlador asociado
 Router::dispatch();
