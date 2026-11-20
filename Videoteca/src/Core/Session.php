@@ -7,7 +7,7 @@ final class Session
 {
     // Tiempo máximo que puede pasar sin que el usuario haga ninguna petición
     // Valor para pruebas (segundos). En producción sería mucho mayor.
-    private const INACTIVIDAD_MAX = 60;
+    private const INACTIVIDAD_MAX = 1300;
 
     // ---------- Etapa 1 y 4: arranque ----------
     public static function iniciar(): void
@@ -119,7 +119,7 @@ final class Session
     }
 
     // ---------- Etapa 6: caducidad por inactividad ----------
-    public static function comprobarCaducidad(): void
+        public static function comprobarCaducidad(): void
     {
         // TODO: solo si existe 'user_id' en la sesión
         // TODO: si han pasado más de INACTIVIDAD_MAX segundos desde
@@ -129,5 +129,24 @@ final class Session
         //       3) setFlash('error', 'Tu sesión ha caducado por inactividad')
         //       4) redirect('login');
         // TODO: si no caduca, actualizar 'ultima_actividad' con time()
+        if (!self::has('user_id')) {
+            return;
+        }
+
+        $ultima = self::get('ultima_actividad');
+
+        if ($ultima !== null && (time() - $ultima) > self::INACTIVIDAD_MAX) {
+            // guardamos el flash ANTES de destruir
+            self::setFlash('error', 'Tu sesión ha caducado por inactividad');
+            self::destruir();
+            // tras destruir hay que volver a iniciar la sesión para que el flash sobreviva
+            self::iniciar();
+            self::setFlash('error', 'Tu sesión ha caducado por inactividad');
+            redirect('login');
+        }
+
+        // actualizamos la marca de tiempo
+        self::set('ultima_actividad', time());
+    
     }
 }
