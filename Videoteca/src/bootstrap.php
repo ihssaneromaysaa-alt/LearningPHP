@@ -15,7 +15,7 @@ use Core\Session;
 
 // La sesión se inicia UNA sola vez por petición, antes de cualquier salida.
 Session::iniciar();
-Session::set('secret', '1234');
+// Session::set('secret', '1234');
 /*
 echo '<pre>';
 echo 'Ruta de sesiones: ' . session_save_path() . "\n";
@@ -24,5 +24,7 @@ echo '</pre>';
 */
 // Etapa 6: aquí se llamará a Session::comprobarCaducidad();
 
+// Session::comprobarCaducidad();
+Router::dispatch();
 // Evalúa la URL recibida y ejecuta la función/controlador asociado
 Router::dispatch();

@@ -17,7 +17,9 @@ final class AuthController
     // y pasadlos a la vista (la vista no accede a Session).
     public function showLogin(): void
     {
-        (new Pages())->render('auth/login', ['error' => null, 'info' => null]);
+        (new Pages())->render('auth/login', [
+            'error' => Session::getFlash('error'),
+            'info'  => Session::getFlash('info'),]);
     }
 
     public function login(): void
@@ -36,23 +38,26 @@ final class AuthController
         $usuario = (new UserModel())->findByEmail($email);
 
         if ($usuario === null || !password_verify($password, $usuario['hash'])) {
+            Session::setFlash('error', 'Credenciales incorrectas');
             redirect('login');   // mismo comportamiento en ambos fallos
         }
 
         // Login correcto
         // (en Etapa 4 añadiremos Session::regenerar() aquí)
+
         Session::regenerar();
         Session::set('user_id', $usuario['id']);
-        
-        
-
         redirect('perfil');
     }
 
     public function logout(): void
     {
         // TODO (Etapa 2): Session::destruir() y redirect('login')
-        Session::destruir();    
+
+        Session::destruir();
+        // Problema: tras destruir() no hay sesión.
+        Session::setFlash('info', 'Has cerrado sesión correctamente');
         redirect('login');
+
     }
 }

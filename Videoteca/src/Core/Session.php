@@ -104,12 +104,18 @@ final class Session
     public static function setFlash(string $clave, string $mensaje): void
     {
         // TODO: guardarlo dentro de $_SESSION['_flash'][$clave]
+        $_SESSION['_flash'][$clave] = $mensaje;
     }
 
     public static function getFlash(string $clave): ?string
     {
         // TODO: devolver el mensaje Y borrarlo en el mismo instante
-        return null;
+        if (!isset($_SESSION['_flash'][$clave])) {
+            return null;
+        }
+        $mensaje = $_SESSION['_flash'][$clave];
+        unset($_SESSION['_flash'][$clave]);
+        return $mensaje;
     }
 
     // ---------- Etapa 6: caducidad por inactividad ----------

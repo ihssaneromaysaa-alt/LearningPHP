@@ -25,6 +25,7 @@ final class AuthMiddleware
         //       - redirect('login')  (ya incluye exit)
         if (!Session::has('user_id')) {
             // (en Etapa 5 añadiremos el flash aquí)
+            Session::setFlash('error', 'Debes iniciar sesión para ver esta página');
             redirect('login');
         }
     }
