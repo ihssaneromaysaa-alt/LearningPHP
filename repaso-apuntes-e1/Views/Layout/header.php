@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <title>Mi web</title>
 </head>
-<body>
+<body class="tema-gris">
 <header>
     <p><a href="<?= e(url('')) ?>"><strong>Mi web</strong></a></p>
     <nav>

@@ -13,4 +13,6 @@ require_once BASE_PATH . '/src/Core/helpers.php';
 use Core\Router;
 
 // ejercicio sin sesiones 1
+
+// siempre escribir esta linea al final del bootstrap.
 Router::dispatch();

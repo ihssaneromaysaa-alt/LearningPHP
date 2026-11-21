@@ -1,5 +1,4 @@
 <h1>Agenda de contactos</h1>
-<p>Funciona el router.</p>
 <table>
     <thead>
         <tr>
@@ -8,13 +7,19 @@
             <th>email</th>
         </tr>
     </thead>
-    <?php if(isset($usuarios)): ?>
-    <?php foreach ($usuarios as $usuario): ?>
+    <?php if(isset($user)): ?>
+    <?php foreach ($user as $usuario): ?>
         <tr>
-            <th><?= $e($usuario['nombre']) ?></th>
-            <th><?= $e($usuario['telefono']) ?></th>
-            <th><?= $e($usuario['email']) ?></th>
+            <td><?= htmlspecialchars($usuario['nombre']) ?></td>
+            <td><?= htmlspecialchars($usuario['telefono']) ?></td>
+            <td><?= htmlspecialchars($usuario['email']) ?></td>
         </tr>
     <?php endforeach; ?>
     <?php endif; ?>
 </table>
+<br>
+<form action="<?= (url('vaciar')) ?>" method="post"
+    onsubmit="return confirm('¿Seguro que quieres vaciar la agenda?');">
+    <p>parar vaciar la agenda</p>
+    <button type="submit">vaciar agenda</button>
+</form>
