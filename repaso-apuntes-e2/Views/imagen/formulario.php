@@ -11,6 +11,7 @@
         <button class="boton" type="submit">Cargar Imagen</button>
     </form>
 
+<?php if(is_dir('uploads/')): ?>
 <h1>
     lista de imagenes
 </h1>
@@ -52,3 +53,9 @@
     <p>parar vaciar la agenda</p>
     <button type="submit">vaciar galeria</button>
 </form>
+
+<?php elseif(!is_dir('uploads/')): ?>
+<h1>
+    no existen imagenes
+</h1>
+<?php endif; ?>
