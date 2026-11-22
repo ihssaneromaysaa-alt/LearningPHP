@@ -1,0 +1,174 @@
+:root {
+    --bg: #f4f5f7;
+    --texto: #222;
+    --cabecera: #1a365d;
+    --principal: #2b6cb0;
+    --principal-hover: #1a4f8b;
+    --borde: #ddd;
+    --tarjeta: #fff;
+    --error: #b91c1c;
+    --ok: #0a6b0a;
+    --footer-bg: #202938;
+    --footer-texto: #cbd5e1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { min-height: 100%; }
+
+body {
+    font-family: system-ui, sans-serif;
+    color: var(--texto);
+    line-height: 1.45;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: var(--cabecera);
+    color: #fff;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+header a { color: #fff; text-decoration: none; }
+header a:hover { text-decoration: underline; }
+header p { margin: 0; font-size: 1.1rem; }
+
+nav ul { list-style: none; display: flex; gap: 1.25rem; }
+nav a { font-size: 0.95rem; opacity: 0.9; }
+nav a:hover { opacity: 1; }
+
+main {
+    flex: 1;
+    max-width: 640px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+}
+
+main h1 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+    color: var(--cabecera);
+    font-size: 1.35rem;
+}
+
+main h3 {
+    margin: 1rem 0 0.75rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+main form {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: var(--tarjeta);
+}
+
+main form[style*="inline"] {
+    display: inline-grid;
+    margin: 0 0.5rem 0 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    vertical-align: middle;
+}
+
+main label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+main input[type="text"],
+main input[type="email"] {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+}
+
+main input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.35rem;
+    vertical-align: middle;
+    accent-color: var(--principal);
+}
+
+main input:focus {
+    outline: 2px solid var(--principal);
+    border-color: var(--principal);
+}
+
+main button {
+    margin-top: 0.25rem;
+    padding: 0.55rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--principal);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+main button:hover { background: var(--principal-hover); }
+
+    
+main form[style*="inline"] button {
+    width: 1.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border-radius: 4px;
+    background: #cbd5e1;
+    border: 2px solid #a0aec0;
+}
+
+main form[style*="inline"] button[data-hecha="1"] {
+    background: var(--ok);
+    border-color: var(--ok);
+}
+
+main p { margin-bottom: 0.6rem; }
+
+.error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+    display: block;
+}
+
+footer {
+    background: var(--footer-bg);
+    color: var(--footer-texto);
+    padding: 25px 1rem;
+    margin-top: auto;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer p {
+    margin: 6px 0;
+    font-size: 14px;
+    text-align: center;
+}
