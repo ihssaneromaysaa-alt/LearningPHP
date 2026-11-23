@@ -34,7 +34,7 @@ class AuthController
             ]);
             return;
         }
-
+        
         $entrada = $_POST['usuario'] ?? [];
 
         $request = new UsuarioRequests(
