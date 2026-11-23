@@ -1,5 +1,4 @@
 <?php
-/** ARCHIVO DE ARRANQUE  */
 declare(strict_types=1);
 
 // Ruta absoluta a la raíz del proyecto.

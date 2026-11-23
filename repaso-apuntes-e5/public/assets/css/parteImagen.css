@@ -1,0 +1,243 @@
+:root {
+    --bg: #f4f5f7;
+    --texto: #222;
+    --cabecera: #233820;
+    --cabecera-texto: #fff;
+    --principal: #b02b2b;
+    --principal-hover: #8b1a1a;
+    --peligro: #c53030;
+    --peligro-hover: #9b2c2c;
+    --borde: #ddd;
+    --tarjeta: #fff;
+    --error: #b91c1c;
+    --footer-bg: #233820;
+    --footer-texto: #cbd5e1;
+    --tabla-th: #edf2f7;
+    --tabla-par: #f9fafb;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    color: var(--texto);
+    line-height: 1.45;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabecera */
+header {
+    background: var(--cabecera);
+    color: var(--cabecera-texto);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+header a {
+    color: var(--cabecera-texto);
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header p,
+header span {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+}
+
+nav a {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+/* Contenido */
+main {
+    flex: 1;
+    max-width: 720px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+}
+
+main h1 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+    color: var(--cabecera);
+    font-size: 1.4rem;
+}
+
+main h3 {
+    margin: 1.25rem 0 0.75rem;
+    color: #2d3748;
+    font-size: 1rem;
+}
+
+/* Formularios */
+main form {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: var(--tarjeta);
+}
+
+main form[style*="inline"] {
+    display: inline-grid;
+    margin: 0.35rem 0.5rem 1rem 0;
+    padding: 0.4rem;
+    border: none;
+    background: transparent;
+}
+
+main label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+main input[type="text"],
+main input[type="email"],
+main input[type="number"],
+main input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font: inherit;
+    background: var(--tarjeta);
+}
+
+main input:focus {
+    outline: 2px solid var(--principal);
+    border-color: var(--principal);
+}
+
+main input.invalido {
+    border-color: var(--error);
+}
+
+main button,
+main .boton {
+    margin-top: 0.25rem;
+    padding: 0.55rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--principal);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+main button:hover,
+main .boton:hover {
+    background: var(--principal-hover);
+}
+
+main form[style*="inline"] button {
+    background: var(--peligro);
+    padding: 0.35rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+main form[style*="inline"] button:hover {
+    background: var(--peligro-hover);
+}
+
+.error-campo {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.15rem;
+}
+
+/* Galería */
+main img {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: var(--tarjeta);
+    margin-top: 0.5rem;
+}
+
+/* Tabla */
+main table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--tarjeta);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+}
+
+main th,
+main td {
+    border-bottom: 1px solid #eee;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+}
+
+main th {
+    background: var(--tabla-th);
+    font-weight: 600;
+}
+
+main tr:last-child td {
+    border-bottom: none;
+}
+
+main tr:nth-child(even) {
+    background: var(--tabla-par);
+}
+
+/* Footer centrado */
+footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-texto);
+    padding: 25px 1rem;
+    margin-top: auto;
+    text-align: center;
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer p {
+    text-align: center;
+    margin: 6px 0;
+    font-size: 14px;
+}

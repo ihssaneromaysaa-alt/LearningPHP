@@ -1,0 +1,611 @@
+
+/* ============================================================
+   VARIABLES GENERALES
+   ============================================================ */
+
+:root {
+    /* Colores principales */
+    --principal: #5c5028;
+    --principal-hover: #5d4835;
+
+    /* Color de acciones */
+    --acento: #b96b50;
+    --acento-hover: #99543d;
+
+    /* Fondos */
+    --fondo: #f3f5f2;
+    --tarjeta: #ffffff;
+    --fondo-secundario: #e8eee9;
+
+    /* Textos */
+    --texto: #29332d;
+    --texto-claro: #ffffff;
+    --texto-secundario: #68756c;
+
+    /* Bordes */
+    --borde: #d5ded7;
+
+    /* Estados */
+    --error: #b54242;
+    --error-fondo: #fbeaea;
+
+    --ok: #6b5032;
+    --ok-fondo: #e5f1e8;
+
+    /* Tablas */
+    --tabla-th: #e3ebe5;
+    --tabla-par: #f7f9f7;
+
+    /* Decoración */
+    --radio: 10px;
+    --sombra: 0 4px 14px rgba(37, 70, 56, 0.08);
+}
+
+
+/* ============================================================
+   RESETEO GENERAL
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.5;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   CABECERA
+   ============================================================ */
+
+header {
+    background: var(--principal);
+    color: var(--texto-claro);
+
+    padding: 1rem 1.5rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+header a {
+    color: var(--texto-claro);
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header p {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+nav ul {
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+nav a {
+    font-size: 0.95rem;
+}
+
+/* ============================================================
+   CONTENIDO PRINCIPAL
+   ============================================================ */
+
+main {
+    flex: 1;
+
+    width: 100%;
+    max-width: 850px;
+
+    margin: 2rem auto;
+    padding: 0 1.2rem 3rem;
+}
+
+main h1 {
+    color: var(--principal);
+    text-align: center;
+
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+main h3 {
+    color: var(--principal);
+    font-size: 1.1rem;
+
+    margin: 1.5rem 0 1rem;
+}
+
+main p {
+    margin-bottom: 0.6rem;
+}
+
+/* ============================================================
+   TARJETAS
+   ============================================================ */
+
+.tarjeta {
+    width: 100%;
+    max-width: 500px;
+
+    margin: 2rem auto;
+    padding: 2rem;
+
+    background: var(--tarjeta);
+
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+
+    box-shadow: var(--sombra);
+}
+
+.tarjeta h1 {
+    color: var(--principal);
+    text-align: center;
+
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   FORMULARIOS GENERALES
+   ============================================================ */
+
+main form,
+.tarjeta form {
+    display: grid;
+    gap: 0.9rem;
+
+    width: 100%;
+
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    background: var(--tarjeta);
+
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+}
+
+main label,
+.tarjeta label {
+    display: block;
+
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    margin-bottom: 0.3rem;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+/* ============================================================
+   FORMULARIOS PEQUEÑOS INLINE
+   Por ejemplo: eliminar una imagen
+   ============================================================ */
+
+main form[style*="inline"],
+.tarjeta form[style*="inline"] {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: auto;
+
+    padding: 0.3rem;
+    margin: 0.3rem 0.5rem 1rem 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+main input[type="text"],
+main input[type="email"],
+main input[type="password"],
+main input[type="number"],
+main input[type="file"],
+.tarjeta input[type="text"],
+.tarjeta input[type="email"],
+.tarjeta input[type="password"],
+.tarjeta input[type="number"],
+.tarjeta input[type="file"] {
+    width: 100%;
+    min-width: 0;
+
+    padding: 0.7rem 0.8rem;
+
+    font: inherit;
+
+    background: white;
+
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+main input:focus,
+.tarjeta input:focus {
+    outline: none;
+
+    border-color: var(--acento);
+
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+main input.invalido,
+.tarjeta input.invalido {
+    border-color: var(--error);
+}
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
+
+main button,
+main .boton,
+.tarjeta button,
+.tarjeta .boton {
+    display: inline-block;
+
+    width: fit-content;
+
+    padding: 0.7rem 1.2rem;
+
+    background: var(--acento);
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font: inherit;
+    font-weight: 600;
+
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: background 0.2s, transform 0.2s;
+}
+
+main button:hover,
+main .boton:hover,
+.tarjeta button:hover,
+.tarjeta .boton:hover {
+    background: var(--acento-hover);
+}
+
+main button:active,
+main .boton:active,
+.tarjeta button:active,
+.tarjeta .boton:active {
+    transform: translateY(1px);
+}
+
+/* Botones de eliminación */
+
+main form[style*="inline"] button,
+.tarjeta form[style*="inline"] button {
+    background: var(--error);
+
+    padding: 0.4rem 0.8rem;
+
+    font-size: 0.85rem;
+}
+
+main form[style*="inline"] button:hover,
+.tarjeta form[style*="inline"] button:hover {
+    background: #991b1b;
+}
+
+/* ============================================================
+   ENLACES
+   ============================================================ */
+
+main a,
+.tarjeta a {
+    color: var(--principal);
+}
+
+main a:hover,
+.tarjeta a:hover {
+    color: var(--acento);
+}
+
+/* Los enlaces con aspecto de botón */
+
+main a.boton,
+.tarjeta a.boton {
+    color: white;
+    text-decoration: none;
+}
+
+/* ============================================================
+   MENSAJES DE ERROR Y ÉXITO
+   ============================================================ */
+
+.error,
+.error-campo {
+    color: var(--error);
+    font-size: 0.85rem;
+}
+
+.alerta {
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+
+    border-radius: 7px;
+    border: 1px solid transparent;
+}
+
+.alerta-error {
+    color: var(--error);
+    background: var(--error-fondo);
+    border-color: #fecaca;
+}
+
+.alerta-ok {
+    color: var(--ok);
+    background: var(--ok-fondo);
+    border-color: #bbf7d0;
+}
+
+.alerta a {
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* ============================================================
+   TABLAS
+   ============================================================ */
+
+main table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: var(--tarjeta);
+
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+main th,
+main td {
+    padding: 0.8rem 1rem;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--borde);
+}
+
+main th {
+    background: var(--tabla-th);
+
+    color: var(--principal);
+    font-weight: 600;
+}
+
+main tr:nth-child(even) {
+    background: var(--tabla-par);
+}
+
+main tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+footer {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+
+    flex-shrink: 0;
+    display: block;
+
+    background: var(--principal);
+    color: #edf3ee;
+
+    padding: 2rem 1.5rem;
+
+    text-align: center;
+    margin-top: auto;
+
+    border-top: 4px solid var(--acento);
+}
+
+.footer-container {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+footer p {
+    margin: 0.4rem 0;
+
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #edf3ee;
+}
+
+footer a {
+    color: #d9b49e;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* ============================================================
+   AJUSTES RESPONSIVE DEL FOOTER
+   ============================================================ */
+
+@media (max-width: 600px) {
+    footer {
+        padding: 1.5rem 1rem;
+    }
+
+    .footer-container {
+        padding: 0;
+    }
+}
+
+/* ============================================================
+   ADAPTACIÓN A MÓVILES
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    main {
+        margin: 1.2rem auto;
+        padding: 0 0.8rem 2rem;
+    }
+
+    main h1 {
+        font-size: 1.35rem;
+    }
+
+    .tarjeta {
+        padding: 1.2rem;
+        margin: 1rem auto;
+    }
+
+    main form,
+    .tarjeta form {
+        padding: 1rem;
+    }
+
+    main table {
+        font-size: 0.85rem;
+    }
+
+    main th,
+    main td {
+        padding: 0.55rem;
+    }
+
+    main img {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+
+
+/* ============================================================
+   UNIFICACIÓN VISUAL
+   ============================================================ */
+
+/* Tarjetas */
+.tarjeta,
+main form {
+    box-shadow: var(--sombra);
+    border-color: var(--borde);
+}
+
+/* Botones */
+main button,
+main .boton,
+.tarjeta button,
+.tarjeta .boton {
+    background: var(--acento);
+    border-radius: 7px;
+}
+
+main button:hover,
+main .boton:hover,
+.tarjeta button:hover,
+.tarjeta .boton:hover {
+    background: var(--acento-hover);
+}
+
+/* Encabezados */
+main h1,
+main h3,
+.tarjeta h1 {
+    color: var(--principal);
+}
+
+/* Tablas */
+main th {
+    background: var(--tabla-th);
+    color: var(--principal);
+}
+
+main tr:nth-child(even) {
+    background: var(--tabla-par);
+}
+
+/* Imágenes */
+main img {
+    border: 2px solid var(--borde);
+    border-radius: 10px;
+    box-shadow: var(--sombra);
+}
+
+/* Mensajes */
+.alerta-error {
+    background: var(--error-fondo);
+    color: var(--error);
+}
+
+.alerta-ok {
+    background: var(--ok-fondo);
+    color: var(--ok);
+}
