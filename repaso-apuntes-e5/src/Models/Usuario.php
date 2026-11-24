@@ -41,7 +41,7 @@ class Usuario
             return false;
 
         // leer el archivo json con file_exists y is_readable
-        $ruta = RUTA_USUARIOS;
+        $ruta = RUTA_BIBLIOTECA;
         if (!file_exists($ruta) || !is_readable($ruta))
             throw new \RuntimeException("No se pudo acceder al archivo de usuarios.");
 
@@ -66,14 +66,9 @@ class Usuario
 
         // definir la ruta de la carpeta y el archivo
         $rutaCarpeta = RUTA_CARPETA;
-        $rutaArchivo = RUTA_USUARIOS;
+        $rutaArchivo = RUTA_BIBLIOTECA;
 
-        // Crear la carpeta si no existe
-        if (!file_exists($rutaCarpeta)) {
-            if (!mkdir($rutaCarpeta, 0755, true)) {
-                throw new \RuntimeException("No se pudo crear la carpeta de datos.");
-            }
-        }
+        
 
         // Crear el archivo JSON con estructura inicial si no existe
         if (!file_exists($rutaArchivo)) {
