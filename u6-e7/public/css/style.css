@@ -1,0 +1,139 @@
+/* ============================
+   CARRITO DE LA COMPRA
+   ============================ */
+
+.carrito-titulo {
+    background: #facc15;          /* amarillo de las capturas */
+    color: #1e293b;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.carrito-form {
+    background: #fff;
+    padding: 1.8rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,.07);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+}
+
+.carrito-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: .35rem;
+}
+
+.carrito-form input[type="text"],
+.carrito-form select {
+    width: 100%;
+    max-width: 280px;
+    padding: .55rem .75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font: inherit;
+    margin-bottom: 1.1rem;
+}
+
+.carrito-form input:focus,
+.carrito-form select:focus {
+    outline: 2px solid #eab308;
+    border-color: #eab308;
+}
+
+.carrito-botones {
+    display: flex;
+    gap: .8rem;
+    margin-top: .5rem;
+    flex-wrap: wrap;
+}
+
+.btn-anadir {
+    background: #475569;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: .6rem 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    font: inherit;
+}
+
+.btn-anadir:hover {
+    background: #334155;
+}
+
+.btn-comprar {
+    background: #eab308;
+    color: #1e293b;
+    border: none;
+    border-radius: 8px;
+    padding: .6rem 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-comprar:hover {
+    background: #ca8a04;
+}
+
+/* Tabla del carrito */
+.tabla-carrito {
+    width: 100%;
+    max-width: 480px;
+    border-collapse: collapse;
+    margin: 1.5rem auto;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,.07);
+}
+
+.tabla-carrito th {
+    background: #facc15;
+    color: #1e293b;
+    padding: .7rem 1.2rem;
+    text-align: left;
+    font-weight: 700;
+}
+
+.tabla-carrito td {
+    padding: .65rem 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tabla-carrito tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-carrito tr:hover td {
+    background: #fefce8;
+}
+
+.carrito-vacio {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    margin: 2rem 0;
+}
+
+.volver {
+    display: inline-block;
+    margin-top: 1.2rem;
+    color: #475569;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.volver:hover {
+    color: #1e293b;
+    text-decoration: underline;
+}
