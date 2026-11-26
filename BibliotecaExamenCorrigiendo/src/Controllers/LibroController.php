@@ -14,88 +14,73 @@ final class LibroController {
     }
 
     /** Procesa el alta de un libro. */
-    public function store(): void
-    {
-        // TODO (apartado 4): crear new LibroRequest($_POST, $_FILES).
-        //      Si no es válido -> render('libro/formulario') con 'errores' y 'datos', y return.
-        $entrada = [
-            'titulo'=>$_POST['libro'],
-        'autor'=>$_POST['autor'],
-        'genero'=>$_POST['genero'],
-        'anio'=>$_POST['anio'],
-        'paginas'=>$_POST['paginas']] ?? [];
-        $archivo =  $_FILES['portada'] ?? [];
-
-        $request = new LibroRequests(
-            is_array($entrada) ? $entrada : [],
-            is_array($archivo) ? $archivo : []
-        );
+    public function store(): void {
+        $request = new LibroRequests($_POST, $_FILES['portada'] ?? []);
 
         if (!$request->esValido()) {
             new Pages()->render('libro/formulario', [
                 'errores' => $request->errores(),
-                'datos' => [is_array($entrada ?? null)? $entrada : ''],
+                'datos'   => $request->datos(),
             ]);
             return;
         }
 
-        $datos = $request->datos();
+        $datos   = $request->datos();
         $archivo = $request->archivo();
 
-        // TODO (apartado 5):
-        //      1. Generar el nombre único de la imagen (todavía no se mueve).
-        //      2. Crear el objeto Libro con ese nombre de portada.
-        //      3. Si existe() -> render('libro/formulario') con $errores['general'], y return.
-        //      4. Mover la imagen a RUTA_IMG.
-        //
-        // TODO (apartado 6):
-        //      guardar() -> render('libro/formulario') con 'mensaje' y 'libro'.
-        //      Si falla -> borrar la imagen que ya se había movido y mostrar un error.
-
-        // crear la carpeta si no existe
-        $rutaCarpeta = RUTA_IMG;
-        if (!is_dir($rutaCarpeta)) {
-            if (!mkdir($rutaCarpeta, 0775, true)) {
-                throw new \RuntimeException('No se pudo crear la carpeta.');
-            }
-        }
-
-        // obtener la extensión del archivo validado
+        // Nombre único de la imagen
         $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($archivo['tmp_name']);
-
-        // las extensiones aprobadas:
         $extensiones = [
             'image/jpeg' => 'jpg',
-            'image/png' => 'png',
+            'image/png'  => 'png',
+            'image/webp' => 'webp',
         ];
-        $extension = $extensiones[$mime];
+        $extension  = $extensiones[$mime] ?? 'jpg';
+        $nombreFinal = uniqid('portada_', true) . '.' . $extension;
 
-        // crear un nombre único
-        $nombreFinal = uniqid(time().'_foto_', true) . '.' . $extension;
+        $libro = new Libro(
+            $datos['titulo'],
+            $datos['autor'],
+            $datos['genero'],
+            (int)$datos['anio'],
+            (int)$datos['paginas'],
+            $nombreFinal
+        );
 
-        $libro = new Libro($datos['titulo'],$datos['autor'],$datos['genero'], $datos['anio'], $datos['paginas'], $nombreFinal);
-        if($libro->existe()){
-             new Pages()->render('libro/formulario', [
-                "errores['general']" => 'este libro ya existe',
-                'datos' => [is_array($entrada ?? null)? $entrada : ''],
+        if ($libro->existe()) {
+            new Pages()->render('libro/formulario', [
+                'errores' => ['general' => 'Este libro ya existe en la biblioteca.'],
+                'datos'   => $datos,
             ]);
             return;
         }
-        // construir la ruta definitiva
-        $rutaDestino = $rutaCarpeta . $nombreFinal;
 
-        // mover la foto a uploads
+        $rutaDestino = RUTA_IMG . $nombreFinal;
+
         if (!move_uploaded_file($archivo['tmp_name'], $rutaDestino)) {
-            new Pages()->render('imagen/formulario', [
-                'errores' => [
-                    'foto' => 'No se ha podido guardar la foto.'
-                ]
+            new Pages()->render('libro/formulario', [
+                'errores' => ['portada' => 'No se ha podido guardar la portada.'],
+                'datos'   => $datos,
             ]);
             return;
         }
 
-        redirect('/');
-        exit;
+        if (!$libro->guardar()) {
+            // Si falla el guardado, borramos la imagen ya movida
+            if (is_file($rutaDestino)) {
+                unlink($rutaDestino);
+            }
+            new Pages()->render('libro/formulario', [
+                'errores' => ['general' => 'Error al guardar el libro.'],
+                'datos'   => $datos,
+            ]);
+            return;
+        }
+
+        new Pages()->render('libro/formulario', [
+            'mensaje' => 'Libro guardado correctamente.',
+            'libro'   => $libro,
+        ]);
     }
     public function index(): void
     {

@@ -33,23 +33,17 @@ final class LibroRequests
     {
         $texto = static fn(mixed $v): string => is_string($v) ? trim(strip_tags($v)) : '';
 
-        $generos = [];
-        if (isset($datos['genero']) && is_array($datos['genero'])) {
-            foreach ($datos['genero'] as $m) {
-                $m = strtoupper(trim((string)$m));
-                if (in_array($m, GENEROS, true)) {
-                    $generos[] = $m;
-                }
-            }
+        $genero = $texto($entrada['genero'] ?? '');
+        if (!in_array($genero, GENEROS, true)) {
+            $genero = '';
         }
 
         $this->datos = [
-            'titulo'           => $texto($entrada['titulo'] ?? ''),
-            'autor'        => $texto($entrada['autor'] ?? ''),
-            'genero'           => $generos,
-            'anio'        => $texto($entrada['anio'] ?? ''),
-            'paginas'         => $texto($entrada['paginas']),
-            'portada' => $texto($entrada['portada'] ?? '')
+            'titulo'  => $texto($entrada['titulo'] ?? ''),
+            'autor'   => $texto($entrada['autor'] ?? ''),
+            'genero'  => $genero,
+            'anio'    => $texto($entrada['anio'] ?? ''),
+            'paginas' => $texto($entrada['paginas'] ?? ''),
         ];
     }
     private function sanearLibro(array $archivo){
@@ -81,11 +75,12 @@ final class LibroRequests
             $this->errores['genero'] = 'Debes seleccionar al menos un genero.';
         }
 
-        if ($d['anio'] !== '' && !preg_match('/?[1,]{0,15}$/', $d['anio'])) {
-            $this->errores['anio'] = "El anio debe valores mayores de 0.";
+        if ($d['anio'] === '' || !ctype_digit($d['anio']) || (int)$d['anio'] < 1) {
+            $this->errores['anio'] = 'El año debe ser un número mayor que 0.';
         }
-        if ($d['paginas'] !== '' && !preg_match('/?[1,]{0,15}$/', $d['anio'])) {
-            $this->errores['paginas'] = "Las páginas debe valores mayores de 0.";
+
+        if ($d['paginas'] === '' || !ctype_digit($d['paginas']) || (int)$d['paginas'] < 1) {
+            $this->errores['paginas'] = 'Las páginas deben ser un número mayor que 0.';
         }
 
 
@@ -106,9 +101,9 @@ final class LibroRequests
             return;
         }
 
-        // tamaño máximo (ejemplo: 2 MB)
-        if ($this->archivo['size'] > 500) {
-            $this->errores['foto'] = 'La foto no puede superar los 2 MB.';
+        // tamaño máximo 500 KB
+        if ($this->archivo['size'] > 500 * 1024) {
+            $this->errores['portada'] = 'La portada no puede superar los 500 KB.';
             return;
         }
 
@@ -119,14 +114,14 @@ final class LibroRequests
 
 
         if (!in_array($mime, $tiposPermitidos, true)) {
-            $this->errores['foto'] = 'Solo se permiten imágenes JPG, PNG o WEBP.';
+            $this->errores['portada'] = 'Solo se permiten imágenes JPG, PNG o WEBP.';
             return;
         }
 
         // extensión
         $extension = strtolower(pathinfo($this->archivo['name'], PATHINFO_EXTENSION));
         if (!in_array($extension, ['jpg', 'jpeg', 'png', 'webp'], true)) {
-            $this->errores['foto'] = 'Extensión de archivo no permitida.';
+            $this->errores['portada'] = 'Extensión de archivo no permitida.';
         }
 
     }

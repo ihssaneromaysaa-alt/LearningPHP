@@ -9,84 +9,56 @@ class Libro
     public function __construct(
         public readonly string $titulo,
         public readonly string $autor,
-        public readonly array $genero,
+        public readonly string $genero,
         public readonly int $anio,
         public readonly int $paginas,
-        public readonly string $portada, 
+        public readonly string $portada,
     ) {}
-    public function existe(): bool {
-        // leer el archivo json con file_exists y is_readable
-        $ruta = RUTA_USUARIOS;
-        if (!file_exists($ruta) || !is_readable($ruta))
+    public function existe(): bool{ // tenía que leer bien el archivo, linea por línea
+        if (!is_readable(RUTA_BIBLIOTECA))
             return false;
-        $json = file_get_contents($ruta);
-        if ($json === false)
+
+        $lineas = file(RUTA_BIBLIOTECA, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lineas === false)
             return false;
-        $datos = json_decode($json, true);
-        //if (!isset($datos['titulo']))
-        //    return false; // titulo no existe
-        // buscar en datos el titulo con el mismo autor 
-        foreach($datos as $dato){
-            if(trim(strtoupper($dato['titulo'])) == trim(strtoupper($this->titulo)) && trim(strtoupper($dato['autor'])) == trim(strtoupper(($this->autor)))){
+
+        foreach ($lineas as $linea) {
+            $dato = json_decode($linea, true);
+            if (!is_array($dato)) {
+                continue;
+            }
+            if (
+                trim(strtoupper($dato['titulo'] ?? '')) === trim(strtoupper($this->titulo))
+                && trim(strtoupper($dato['autor'] ?? '')) === trim(strtoupper($this->autor))
+            ) {
                 return true;
             }
         }
         return false;
     }
-    public function guardar():bool{
-        // validar que el titulo y el o la autor o autora no estén vacíos
-        if (empty($this->titulo) || empty($this->autor) )
+    public function guardar(): bool { // debería añadir la linea por linea
+        if ($this->titulo === '' || $this->autor === '') {
             return false;
-
-        // definir la ruta de la carpeta y el archivo
-        $rutaCarpeta = RUTA_CARPETA;
-        $rutaArchivo = RUTA_BIBLIOTECA;
-
-        // crear la carpeta si no existe
-        if (!file_exists($rutaCarpeta)) {
-            if (!mkdir($rutaCarpeta, 0755, true)) {
-                throw new \RuntimeException("No se pudo crear la carpeta de datos.");
-            }
         }
-        // crear el archivo si no existe
-        if (!file_exists($rutaArchivo))
-            if (file_put_contents($rutaArchivo, '') === false) 
-                throw new \RuntimeException("Error al crear el archivo de libros.");
 
-
-        // leer el archivo json existente
-        $json = file_get_contents($rutaArchivo);
-        if ($json === false)
-            throw new \RuntimeException("Error al leer el archivo de libros.");
-        $datos = json_decode($json, true);
-        
-
-        // verificar si el libro ya existe
-        foreach($datos as $dato){
-            if(trim(strtoupper($dato['titulo'])) == trim(strtoupper($this->titulo)) && trim(strtoupper($dato['autor'])) == trim(strtoupper(($this->autor)))){
-                return false; // si el libro ya existe no se añade de nuevo
+        if (!is_dir(RUTA_CARPETA)) {
+            if (!mkdir(RUTA_CARPETA, 0755, true)) {
+                throw new \RuntimeException('No se pudo crear la carpeta de datos.');
             }
         }
 
-        // recoger el array con los datos del libro
-        $datos[] = $this->toArray();
+        $linea = json_encode($this->toArray(), JSON_UNESCAPED_UNICODE) . "\n";
+        $resultado = file_put_contents(RUTA_BIBLIOTECA, $linea, FILE_APPEND | LOCK_EX);
 
-        // guardar los datos actualizados en el archivo JSON
-        $jsonActualizado = json_encode($datos, JSON_UNESCAPED_UNICODE);
-        if ($jsonActualizado === false)
-            throw new \RuntimeException("Error al codificar los datos a JSON.");
-        $resultado = file_put_contents($rutaArchivo, $jsonActualizado);
-        if ($resultado === false)
-            throw new \RuntimeException("Error al guardar el archivo de usuarios.");
-
-        return true;
+        return $resultado !== false;
     }
+
     public function toArray(): array{
         return ['titulo'=>$this->titulo, 
         'autor'=> $this->autor,
-        'genero'=> $this->genero,
+        'genero'  => $this->genero,
         'anio'=> $this->anio,
-        'paginas'=> $this->autor,
+        'paginas'=> $this->paginas,
         'portada'=> $this->portada];
     }
     // función para pasar de un array a un objeto libro
@@ -94,9 +66,9 @@ class Libro
         return new self(
             titulo: trim($datos['titulo'] ?? ''),
             autor: trim($datos['autor'] ?? ''),
-            genero: ([$datos['genero']] ?? []),
-            anio: $datos['anio'] ?? '',
-            paginas: $datos['paginas'] ?? '',
+            genero: trim((string)($datos['genero'] ?? '')),
+            anio: $datos['anio'] ?? 0,
+            paginas: $datos['paginas'] ?? 0,
             portada: trim($datos['portada'] ?? ''),
         );
     }
